@@ -40,7 +40,7 @@ bool Target::isHit(QPointF shot)
 {
     list.push_back(shot);
     update();
-    return (Oy_1(shot)&&line(shot))
+    return (Oy_1(shot) &&Ox_1(shot) &&line(shot))
             || (circut(shot) && Ox_2(shot));
 }
 
@@ -154,7 +154,7 @@ bool Target::circut(QPointF cur)
 
 bool Target::Ox_1(QPointF cur)
 {
-    return cur.y() + radius <= 0;
+    return (cur.y()-pelletCenter.y() - radius) <= 0;
 }
 
 bool Target::Oy_1(QPointF cur)
@@ -170,11 +170,5 @@ bool Target::Ox_2(QPointF cur)
 
 bool Target::line(QPointF cur)
 {
-    return 2*(cur.x()-pelletCenter.x()) + (cur.y()-pelletCenter.y()) >= 0;
-}//+
-
-
-
-
-
-
+    return (cur.x()-pelletCenter.x()) + (cur.y()-pelletCenter.y()) >= 0;
+}
